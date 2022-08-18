@@ -1,1 +1,2 @@
-### Ainda não tem nada
+- make build
+- make up
