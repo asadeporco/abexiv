@@ -1,6 +1,9 @@
 # Abex IV
-## How to run
+### How to run
 
-    - make build
-    - make up
-    - make migrate
+    make first-setup
+
+### How to stop
+    make remove-all
+
+#### For more commands see the file Makefile on project root
