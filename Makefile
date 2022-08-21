@@ -1,4 +1,4 @@
-first-setup: build up migrate echo 2
+first-setup: build up migrate
 up:
 	docker-compose up -d
 build:

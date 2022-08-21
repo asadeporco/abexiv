@@ -5,6 +5,6 @@
 
 ### How to stop
 
-    make remove-all
+    make stop
 
-#### For more commands see the file Makefile on project root
+#### For more commands check the file Makefile on project root
