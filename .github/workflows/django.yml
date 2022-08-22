@@ -24,7 +24,7 @@ jobs:
     - name: Install Dependencies
       run: |
         pip install -r requirements.txt
-    - name: collect static --noinput
+    - name: collect static
       run: |
-        python3 ./abexiv/manage.py collectstatic
+        python3 ./abexiv/manage.py collectstatic --noinput
         
