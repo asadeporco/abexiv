@@ -27,8 +27,3 @@ jobs:
     - name: collect static
       run: |
         python3 ./abexiv/manage.py collectstatic --noinput
-
-    - name: migrations
-      run: |
-        python3 ./abexiv/manage.py migrate
-        
