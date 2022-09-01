@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-e(#u^f=ifrom@3p=u^_ua(a#$y*$v3(h!q%kk5ky1lrqmv%yl8
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+AUTH_USER_MODEL = "user.User"
+AUTH_USER_MODEL = "user.User"
 
 # Application definition
 
@@ -38,12 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_filters',
     'corsheaders',
     'server',
     'question',
     'answer',
     'commons',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -77,6 +80,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'abexiv.wsgi.application'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
 
 
 # Database
