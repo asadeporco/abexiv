@@ -1,16 +1,6 @@
 version: "3.8"
 
 services: 
-  server:
-    container_name: abex_iv_backend
-    build: .
-    command: python ./abexiv/manage.py runserver 0.0.0.0:8000
-    volumes: 
-      - .:/server
-    ports: 
-      - 8000:8000
-    depends_on: 
-      - db
   db:
     image: postgres:13
     container_name: abex_iv_postgres
@@ -21,5 +11,15 @@ services:
       - 5432:5432
     volumes: 
       - postgres_data:/var/lib/postgresql/data/
+  server:
+    container_name: abex_iv_backend
+    build: .
+    volumes: 
+      - .:/server
+    ports: 
+      - 8000:8000
+    depends_on: 
+      - db
+    tty : true
 volumes:
   postgres_data:

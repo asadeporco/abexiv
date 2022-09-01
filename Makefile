@@ -1,6 +1,9 @@
-first-setup: build up migrate
-up:
-	docker-compose up -d
+first-setup: build up-all
+up-all: up-db up-backend
+up-db:
+	docker-compose up -d db
+up-backend:
+	docker-compose up server
 build:
 	docker rm -f abex_iv_backend
 	docker-compose build

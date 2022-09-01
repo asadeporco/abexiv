@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'server',
+    'question',
+    'answer',
+    'commons',
 ]
 
 MIDDLEWARE = [
