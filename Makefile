@@ -4,7 +4,6 @@ up-db:
 	docker-compose up -d db
 up-backend:
 	docker-compose up -d server
-	docker exec -it abex_iv_backend python ./abexiv/manage.py create_user
 build:
 	docker rm -f abex_iv_backend
 	docker-compose build
@@ -22,3 +21,4 @@ remove-db:
 remove-all: remove-backend remove-db
 run-server:
 	docker exec -it abex_iv_backend python ./abexiv/manage.py runserver 0.0.0.0:8000
+	docker exec -it abex_iv_backend python ./abexiv/manage.py create_user

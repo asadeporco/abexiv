@@ -2,6 +2,7 @@
 ### How to run
 
     make first-setup
+    make migrate
     make run-server
 
 ### How to stop
