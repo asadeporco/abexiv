@@ -1,8 +1,26 @@
-from question.models import Question
-from commons.models import QuestionAnswer
+from answer.models import Answer
+
 
 class AnswerService:
 
-    @staticmethod
-    def insert(data):
+    def __init__(self):
         pass
+
+    def create_answer(self, question_id, data, user):
+        answer = Answer()
+        answer.title = data.get("title")
+        answer.description = data.get("description")
+        answer.user = user
+        answer.question_id = question_id
+
+        answer.save()
+
+        return answer
+
+    def update_answer(self, answer_id, data):
+        answer = Answer.objects.filter(id=answer_id).first()
+        answer.title = data.get("title")
+        answer.description = data.get("description")
+        answer.save()
+
+        return answer
