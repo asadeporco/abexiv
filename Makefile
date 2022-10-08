@@ -21,4 +21,5 @@ remove-db:
 remove-all: remove-backend remove-db
 run-server:
 	docker exec -it abex_iv_backend python ./abexiv/manage.py runserver 0.0.0.0:8000
+create-user:
 	docker exec -it abex_iv_backend python ./abexiv/manage.py create_user
