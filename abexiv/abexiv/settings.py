@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'server',
     'question',
     'answer',
+    'category',
     'user',
 ]
 

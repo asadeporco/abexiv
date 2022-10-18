@@ -11,10 +11,14 @@ class UserSerializer(serializers.ModelSerializer):
             "email",
             "first_name",
             "last_name",
+            "is_verified",
         ]
 
         extra_kwargs = {
-            'password': {'write_only': True}
+            'password': {'write_only': True},
+            'email': {'write_only': True},
+            'first_name': {'write_only': True},
+            'last_name': {'write_only': True},
         }
         
 class UserShortSerializer(serializers.ModelSerializer):
@@ -26,4 +30,5 @@ class UserShortSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "username",
+            "is_verified",
         ]

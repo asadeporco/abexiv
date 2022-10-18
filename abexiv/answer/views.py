@@ -9,15 +9,15 @@ from question.models import Question
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.pagination import PageNumberPagination
 
 from answer.service import AnswerService
+from utils.custom_pagination import CustomPagination
 
 class AnswerCreateListView(generics.ListCreateAPIView):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-    pagination_class = PageNumberPagination
+    pagination_class = CustomPagination
 
     def __init__(self):
         self.service = AnswerService()
@@ -30,7 +30,7 @@ class AnswerCreateListView(generics.ListCreateAPIView):
                 "message": f"Question with id {question_id} does not exist"
             })
 
-        return Answer.objects.filter(question_id=question_id)
+        return Answer.objects.select_related("user").filter(question_id=question_id)
 
 
     def post(self, request, question_id, *args, **kwargs):

@@ -7,14 +7,15 @@ from user.models import User
 from user.serializers import UserSerializer
 from rest_framework.response import Response
 
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.filters import SearchFilter
+
+from utils.custom_pagination import CustomPagination
 
 
 
 class UserCreateListView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
-    pagination_class = PageNumberPagination
+    pagination_class = CustomPagination
     filter_backends = [SearchFilter]
     search_fields = ['$username', '$first_name', '$last_name']
 
@@ -23,6 +24,9 @@ class UserCreateListView(generics.ListCreateAPIView):
 
 class UserRetrieveUpdateView(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
+    
+    def __init__(self, **kwargs):
+        self.service = UserService()
    
     def get(self, request, user_id, *args, **kwargs):
         user = User.objects.filter(id=user_id).first()
@@ -45,13 +49,11 @@ class UserRetrieveUpdateView(generics.RetrieveUpdateAPIView):
             })
 
         request_params = request.data
-        user.username = request_params.get('')
+        
+        data = self.service.insert(user, request_params)
 
-        user.username = request_params.get("username")
-        user.first_name = request_params.get("first_name")
-        user.last_name = request_params.get("last_name")
-        user.save()
+        
 
-        data = UserSerializer(user).data
+        data = UserSerializer(data).data
 
         return Response(data)

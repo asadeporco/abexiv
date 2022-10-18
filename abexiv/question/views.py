@@ -1,23 +1,35 @@
+from email.policy import default
+from unicodedata import category
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.filters import SearchFilter
 
 from question.models import Question
 from question.serializers import QuestionSerializer
+from utils.custom_pagination import CustomPagination
+
 
 
 class QuestionCreateListView(generics.ListCreateAPIView):
-    queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-    pagination_class = PageNumberPagination
+    pagination_class = CustomPagination
     filter_backends = [SearchFilter]
     search_fields = ['$description', '$title']
+    
+    def get_queryset(self):
+        categories = self.request.GET.getlist("category")
+        return Question.objects.select_related("category").filter(category_id__in=categories)
 
     def post(self, request, *args, **kwargs):
-        question = Question(**request.data)
+        request_params = request.data
+        
+        question = Question()
+        question.title = request_params.get("title")
+        question.description = request_params.get("description")
+        question.category_id = request_params.get("category_id")
+        
         question.user = request.user
         question.save()
         return Response(QuestionSerializer(question).data)
