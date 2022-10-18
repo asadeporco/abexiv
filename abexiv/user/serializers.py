@@ -16,3 +16,14 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True}
         }
+        
+class UserShortSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField()
+    username = serializers.CharField()
+    
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "username",
+        ]
