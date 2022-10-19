@@ -24,12 +24,6 @@ class AnswerCreateListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         question_id = self.kwargs.get('question_id')
-        question = Question.objects.filter(id=question_id).first()
-        if not question:
-            return Response({
-                "message": f"Question with id {question_id} does not exist"
-            })
-
         return Answer.objects.select_related("user").filter(question_id=question_id)
 
 
