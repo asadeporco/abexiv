@@ -20,6 +20,21 @@ class UserCreateListView(generics.ListCreateAPIView):
     search_fields = ['$username', '$first_name', '$last_name']
 
     queryset =  User.objects.all()
+    
+    def post(self, request, *args, **kwargs):
+        request_params = request.data
+        username = request_params.get("username")
+        password = request_params.get("password")
+        email = request_params.get("email")
+        
+        user = User()
+        user.username = username
+        user.set_password(password)
+        user.email = email
+        user.save()
+        
+        return Response(UserSerializer(user).data)
+
 
 
 class UserRetrieveUpdateView(generics.RetrieveUpdateAPIView):
