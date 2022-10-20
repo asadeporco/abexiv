@@ -19,8 +19,13 @@ class QuestionCreateListView(generics.ListCreateAPIView):
     search_fields = ['$description', '$title']
     
     def get_queryset(self):
+        params = {}
         categories = self.request.GET.getlist("category")
-        return Question.objects.select_related("category").filter(category_id__in=categories)
+
+        if (categories):
+            params["category_id__in"] = categories
+
+        return Question.objects.select_related("category").filter(**params)
 
     def post(self, request, *args, **kwargs):
         request_params = request.data
