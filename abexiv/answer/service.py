@@ -8,7 +8,6 @@ class AnswerService:
 
     def create_answer(self, question_id, data, user):
         answer = Answer()
-        answer.title = data.get("title")
         answer.description = data.get("description")
         answer.user = user
         answer.question_id = question_id
@@ -19,7 +18,6 @@ class AnswerService:
 
     def update_answer(self, answer_id, data):
         answer = Answer.objects.filter(id=answer_id).first()
-        answer.title = data.get("title")
         answer.description = data.get("description")
         answer.save()
 

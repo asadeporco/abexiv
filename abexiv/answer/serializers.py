@@ -9,7 +9,6 @@ class AnswerSerializer(serializers.ModelSerializer):
         model = Answer
         fields = [
                     "created_at",
-                    "title",
                     "description",
                     "user",
                   ]
