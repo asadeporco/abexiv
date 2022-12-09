@@ -12,6 +12,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from answer.service import AnswerService
 from utils.custom_pagination import CustomPagination
+from commons.serializers import UserAnswaresWithQiestions
 
 class AnswerCreateListView(generics.ListCreateAPIView):
     queryset = Answer.objects.all()
@@ -79,3 +80,15 @@ class AnswerDetailView(generics.RetrieveUpdateAPIView):
         data = AnswerSerializer(answer).data
 
         return Response(data)
+
+
+class AnswerListByUser(generics.ListAPIView):
+    serializer_class = UserAnswaresWithQiestions
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = CustomPagination
+
+     
+    def get_queryset(self):
+        user_id = self.kwargs.get("user_id")
+
+        return Answer.objects.select_related("question").filter(user_id=user_id)
