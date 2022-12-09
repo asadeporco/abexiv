@@ -68,8 +68,15 @@ class QuestionDetailRetrieve(generics.RetrieveUpdateAPIView):
 
         data = QuestionSerializer(question).data
         return Response(data)
-
         
 
-        
-        
+class QuestionListByUser(generics.ListAPIView):
+    serializer_class = QuestionSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = CustomPagination
+
+     
+    def get_queryset(self):
+        user_id = self.kwargs.get("user_id")
+
+        return Question.objects.filter(user_id=user_id)
