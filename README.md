@@ -1,17 +1,19 @@
 # Abex IV
-### How to run
+### Rodar projeto
 
     make first-setup
     make migrate
     make run-server
 
-### How to stop
+### Parar projeto
 
     make stop
 
-#### For more commands check the file Makefile on project root
+#### Mais comandos no makefile do projeto raiz
 
-## create admin user
+## criar usuário admin
     make create-user
 
-### create user with username `admin` and password `admin`
+### criar usuario com username 'admin' e senha 'admin'
+
+### =D
